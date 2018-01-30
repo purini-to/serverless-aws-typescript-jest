@@ -1,0 +1,25 @@
+service:
+  name: aws-nodejs-typescript
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: ap-northeast-1
+  memorySize: 128
+  timeout: 10
+
+functions:
+  hello:
+    handler: functions/hello/src/handler.hello
+    events:
+      - s3:
+          bucket: sample-typescript
+          event: s3:ObjectCreated:*
+      - s3:
+          bucket: sample-typescript
+          event: s3:ObjectRemoved:*
